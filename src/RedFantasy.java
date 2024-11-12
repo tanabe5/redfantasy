@@ -1,4 +1,5 @@
 import java.util.Random;
+import java.util.stream.IntStream;
 
 /**
  * RedFantasy
@@ -26,16 +27,28 @@ public class RedFantasy {
     
     public RedFantasy() {
         // init player/cpu monster array
+        /*
         for (int i = 0; i < this.playerMonsters.length; i++) {
             this.playerMonsters[i] = -1;
             this.cpuMonsters[i] = -1;
         }
+        */
+        IntStream.range(0, this.playerMonsters.length).forEach(i -> {
+            this.playerMonsters[i] = -1;
+            this.cpuMonsters[i] = -1;
+        });
         this.playerHistory[0] = this.playerHp;
         this.cpuHistory[0] = this.cpuHp;
+        /*
         for (int i = 0; i < this.playerHistory.length; i++) {
             this.playerHistory[i] = -9999;
             this.cpuHistory[i] = -9999;
         }
+        */
+        IntStream.range(0, this.playerHistory.length).forEach(i -> {
+            this.playerHistory[i] = -9999;
+            this.cpuHistory[i] = -9999;
+        });
     }
 
     public void startPhase() {
@@ -44,52 +57,78 @@ public class RedFantasy {
         // playerMonsters.length -3 ~ playerMonsters.length までのランダムなint型の数値をp1に代入する
         int p1 = this.rnd.nextInt(this.playerMonsters.length - 2) + 3;
         System.out.println("Player Draw " + p1 + " monsters");
+        /*
         for (int i = 0; i < p1; i++) {
             int m = this.rnd.nextInt(this.monsters.length);
             this.playerMonsters[i] = m;
             this.playerMonstersPoint[i] = this.monstersPoint[m];
         }
+        */
+        IntStream.range(0, p1).forEach(i -> {
+            int m = this.rnd.nextInt(this.monsters.length);
+            this.playerMonsters[i] = m;
+            this.playerMonstersPoint[i] = this.monstersPoint[m];
+        });
 
         ////Draw cpu's monster card
         int p2 = this.rnd.nextInt(this.cpuMonsters.length -2 ) + 3;
         System.out.println("CPU Draw " + p2 + " monsters");
+        /*
         for (int i = 0; i < p2; i++) {
             int m = this.rnd.nextInt(this.monsters.length);
             this.cpuMonsters[i] = m;
             this.cpuMonstersPoint[i] = this.monstersPoint[m];
         }
+        */
+        IntStream.range(0, p2).forEach(i -> {
+            int m = this.rnd.nextInt(this.monsters.length);
+            this.cpuMonsters[i] = m;
+            this.cpuMonstersPoint[i] = this.monstersPoint[m];
+        });
 
         System.out.println("--------------------");
         System.out.print("Player Monsters List:");
+        /*
         for(int i = 0; i < this.playerMonsters.length; i++){
             if(this.playerMonsters[i] != -1){
                 System.out.print(this.monsters[this.playerMonsters[i]] + " ");
             }
         }
+        */
+        IntStream.range(0, this.playerMonsters.length).filter(i -> this.playerMonsters[i] != -1).forEach(i -> System.out.print(this.monsters[this.playerMonsters[i]] + " "));
         System.out.print("\nCPU Monsters List:");
+        /*
         for(int i = 0; i < this.cpuMonsters.length; i++){
             if(this.cpuMonsters[i] != -1){
                 System.out.print(this.monsters[this.cpuMonsters[i]] + " ");
             }
         }
+        */
+        IntStream.range(0, this.cpuMonsters.length).filter(i -> this.cpuMonsters[i] != -1).forEach(i -> System.out.print(this.monsters[this.cpuMonsters[i]] + " "));
         System.out.println("\n--------------------");
         System.out.println("Battle!");
         int d1 = this.rnd.nextInt(6)+1; //1~6のサイコロを振る
         System.out.println("Player's Dice'：" + d1);
         if(d1 == 1){
             System.out.println("失敗！すべてのモンスターポイントが半分になる");
+            /*
             for(int i = 0; i < this.playerMonsters.length; i++){
                 if(this.playerMonsters[i] != -1){
                     this.playerMonstersPoint[i] = this.playerMonstersPoint[i] / 2;
                 }
             }
+            */
+            IntStream.range(0, this.playerMonsters.length).filter(i -> this.playerMonsters[i] != -1).forEach(i -> this.playerMonstersPoint[i] = this.playerMonstersPoint[i] / 2);
         }else if(d1 == 6){
             System.out.println("Critical！すべてのモンスターポイントが倍になる");
+            /*
             for(int i = 0; i < this.playerMonsters.length; i++){
                 if(this.playerMonsters[i] != -1){
                     this.playerMonstersPoint[i] = this.playerMonstersPoint[i] * 2;
                 }
             }
+            */
+            IntStream.range(0, this.playerMonsters.length).filter(i -> this.playerMonsters[i] != -1).forEach(i -> this.playerMonstersPoint[i] = this.playerMonstersPoint[i] * 2);
         }else{
             this.playerBonusPoint = d1;
         }
@@ -97,39 +136,51 @@ public class RedFantasy {
         System.out.println("CPU's Dice'：" + d2);
         if(d2 == 1){
             System.out.println("失敗！すべてのモンスターポイントが半分になる");
+            /*
             for(int i = 0; i < this.cpuMonsters.length; i++){
                 if(this.cpuMonsters[i] != -1){
                     this.cpuMonstersPoint[i] = this.cpuMonstersPoint[i] / 2;
                 }
             }
+            */
+            IntStream.range(0, this.cpuMonsters.length).filter(i -> this.cpuMonsters[i] != -1).forEach(i -> this.cpuMonstersPoint[i] = this.cpuMonstersPoint[i] / 2);
         }else if(d2 == 6){
             System.out.println("Critical！すべてのモンスターポイントが倍になる");
+            /*
             for(int i = 0; i < this.cpuMonsters.length; i++){
                 if(this.cpuMonsters[i] != -1){
                     this.cpuMonstersPoint[i] = this.cpuMonstersPoint[i] * 2;
                 }
             }
+            */
+           IntStream.range(0, this.cpuMonsters.length).filter(i -> this.cpuMonsters[i] != -1).forEach(i -> this.cpuMonstersPoint[i] = this.cpuMonstersPoint[i] * 2);
         }else{
             this.cpuBonusPoint = d2;
         }
 
         System.out.println("--------------------");
         System.out.print("Player Monster Pointの合計:");
+        /*
         int p3 = this.playerBonusPoint;
         for(int i = 0; i < this.playerMonsters.length; i++){
             if(this.playerMonsters[i] != -1){
                 p3 = p3 + this.playerMonstersPoint[i];
             }
         }
+        */
+        int p3 = this.playerBonusPoint + IntStream.range(0, this.playerMonsters.length).filter(i -> this.playerMonsters[i] != -1).map(i -> this.playerMonstersPoint[i]).sum();
         System.out.println(p3);
 
         System.out.print("CPU Monster Pointの合計:");
+        /*
         int p4 = this.cpuBonusPoint;
         for(int i = 0; i < this.cpuMonsters.length; i++){
             if(this.cpuMonsters[i] != -1){
                 p4 = p4 + this.cpuMonstersPoint[i];
             }
         }
+        */
+        int p4 = this.cpuBonusPoint + IntStream.range(0, this.cpuMonsters.length).filter(i -> this.cpuMonsters[i] != -1).map(i -> this.cpuMonstersPoint[i]).sum();
         System.out.println(p4);
         System.out.println("--------------------");
 
@@ -148,18 +199,24 @@ public class RedFantasy {
         
         System.out.println("--------------------");
         // 対戦結果の記録
+        /*
         for(int i = 0;i < this.playerHistory.length; i++){
             if(this.playerHistory[i] == -9999){
                 this.playerHistory[i] = this.playerHp;
                 break;
             }
         }
+        */
+        IntStream.range(0, this.playerHistory.length).filter(i -> this.playerHistory[i] == -9999).findFirst().ifPresent(i -> this.playerHistory[i] = this.playerHp);
+        /*
         for(int i = 0;i < this.cpuHistory.length; i++){
             if(this.cpuHistory[i] == -9999){
                 this.cpuHistory[i] = this.cpuHp;
                 break;
             }
         }
+        */
+        IntStream.range(0, this.cpuHistory.length).filter(i -> this.cpuHistory[i] == -9999).findFirst().ifPresent(i -> this.cpuHistory[i] = this.cpuHp);
     }
     public int[] getPlayerHistory(){
         return this.playerHistory;
