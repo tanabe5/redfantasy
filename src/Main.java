@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Main {
     static RedFantasy rf = new RedFantasy();
 
@@ -21,14 +23,27 @@ public class Main {
 				e.printStackTrace();
 			}
 		}
+		
 		System.out.println("Player History:");
+		/*
 		for (int i = 0; i < rf.getPlayerHistory().length && rf.getPlayerHistory()[i] != -9999; i++) {
 			System.out.print(rf.getPlayerHistory()[i] + "\t");
 		}
+		*/
+        Arrays.stream(rf.getPlayerHistory())
+        .takeWhile(history -> history != -9999)
+        .forEach(history -> System.out.print(history + "\t"));
+
 		System.out.println("\nCPU History:");
+		/*
 		for (int i = 0; i < rf.getCpuHistory().length && rf.getCpuHistory()[i] != -9999; i++) {
 			System.out.print(rf.getCpuHistory()[i] + "\t");
 		}
+		*/
+		Arrays.stream(rf.getCpuHistory())
+        .takeWhile(history -> history != -9999)
+        .forEach(history -> System.out.print(history + "\t"));
+
 	}
 
     public static void setMonsters() {
