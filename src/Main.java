@@ -30,9 +30,9 @@ public class Main {
 			System.out.print(rf.getPlayerHistory()[i] + "\t");
 		}
 		*/
-        Arrays.stream(rf.getPlayerHistory())
-        .takeWhile(history -> history != -9999)
-        .forEach(history -> System.out.print(history + "\t"));
+                Arrays.stream(rf.getPlayerHistory())
+                .takeWhile(history -> history != -9999)
+                .forEach(history -> System.out.print(history + "\t"));
 
 		System.out.println("\nCPU History:");
 		/*
@@ -40,9 +40,9 @@ public class Main {
 			System.out.print(rf.getCpuHistory()[i] + "\t");
 		}
 		*/
-        Arrays.stream(rf.getCpuHistory())
-        .takeWhile(history -> history != -9999)
-        .forEach(history -> System.out.print(history + "\t"));
+                Arrays.stream(rf.getCpuHistory())
+                .takeWhile(history -> history != -9999)
+                .forEach(history -> System.out.print(history + "\t"));
 
 	}
 
